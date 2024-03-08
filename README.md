@@ -69,3 +69,28 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # Food-delivery-application
+
+
+#Food Ordering demo
+
+/**
+ * Header()
+ *      - Logo
+ *      - Nav Items
+ * 
+ * Body()
+ *      -Search
+ *      -Restraunt-Container
+ *        - Restraunt Cards
+ *                -Image
+ *                -Name of Res,Star Rating, cuisines, delivery time etc
+ *      
+ * Footer()
+ *      - Copyright
+ *      - Links
+ *      - Address
+ *      - Contact
+ * 
+ * 
+ * 
+ */

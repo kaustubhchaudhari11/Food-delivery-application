@@ -1,17 +1,150 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+.header{
+  display:flex;
+  justify-content: space-between;
+  border: 1px solid black;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.logo{
+  width: 200px;
 }
 
-#h1{
-  color:red;
+.search-box, .filter-btn, .search button {
+  height: 40px; /* Adjust this value so that the search box and both buttons have the same height */
+  padding: 0 15px; /* Optional: Adjust padding as needed */
+}
+
+/* Optionally, you might want to adjust the width of the search box and buttons to ensure they match in terms of overall size and not just height */
+.search-box {
+  flex-grow: 1; /* Allows the search box to expand and fill the available space */
+}
+
+.filter-btn, .search button {
+  white-space: nowrap; /* Prevents text wrapping in buttons */
+}
+
+.nav-items{
+  padding-right:25px;
+}
+
+.nav-items > ul {
+  font-size: 25px;
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-items > ul > li{
+padding: 20px;
+margin :10px;
+}
+
+.search {
+  display: flex;
+  padding : 10px;
+  align-items: center;
+  gap: 5px; 
+}
+
+.res-cards{
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Distribute space around items */
+  margin: 5px;
+  padding: 10px; /* Adjust padding as needed */
+  height: auto; /* Allow card height to expand based on content */
+  min-height: 200px; /* Minimum height to maintain a consistent look */
+  box-sizing: border-box;
+  width: 200px; /* Consider adjusting this width if you want more cards per row */
+  box-sizing: border-box;
+  border: 1px solid #ccc; /* Optional, for better visibility */
+}
+
+.res-cards:hover{
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+.res-logo{
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+
+}
+
+.res-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Corrected from 'flex: wrap;' to 'flex-wrap: wrap;' */
+  justify-content: center;
+  gap: 20px; /* This will ensure there's a little space between the cards */
+  padding: 10px; /* Add padding around the entire container */
+
+}
+
+.filter-btn{
+  margin: 10px;
+  padding: 20px;
+  cursor: pointer;
+}
+.filter{
+ display: flex;
+}
+
+
+.res-cards h3, .res-cards h4 {
+  margin: 5px 0; /* Adjust margins to ensure text is not too cramped */
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words to prevent overflow */
+  overflow: hidden; /* Hide overflow if necessary */
+  text-overflow: ellipsis; /* Show ellipsis for text that overflows */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit text to 2 lines, for example */
+  -webkit-box-orient: vertical;
+}
+
+.shimmer-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.shimmer-card{
+  margin: 20px;
+  width: 200px;
+  height: 400px;
+  background-color: #f0f0f0;
+}
+
+.login-button{
+  padding: 5px 15px; /* Reduced padding */
+  font-size: 14px; /* Adjust font size if needed */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  outline: none;
+
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.login-button:active {
+  transform: scale(0.95);
+}
+
+/* Ensuring the button text doesn't select on double click */
+.login-button:focus {
+  outline: none;
+}
+
+/* Optional: Adding a small shadow for depth */
+.login-button {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
