@@ -1,6 +1,9 @@
 import RestrauntCard from "./Restaurant";
 import {useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
+
+
 
 const Body =() =>{
     // State to manage the filter status (true for filtered, false for unfiltered
@@ -15,6 +18,8 @@ const Body =() =>{
     useEffect (() =>{
       fetchData();
     },[]);
+
+
 
     const fetchData = async () =>{
       try {
@@ -76,12 +81,16 @@ const Body =() =>{
           <div className="res-container">
           {
             restaurants.map((restraunt) => (
-              <RestrauntCard key={restraunt?.info?.id} resData ={restraunt}/>
+                <Link
+                to ={"/restaurants/"+restraunt?.info?.id}
+                >
+                <RestrauntCard key={restraunt?.info?.id} resData ={restraunt}/>
+                </Link>
             ))
           }
           </div>
       </div>
-    )
+    ) 
   }
 
 
