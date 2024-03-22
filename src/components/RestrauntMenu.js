@@ -2,25 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Shimmer from './Shimmer'; // Ensure this path is correct
 import { MENU_API } from '../utils.js/config'; // Ensure this path is correct
+import { useRestrauntMenu } from './useRestrauntMenu';
+import RestaurantCategory from './RestaurantCategory';
+
 
 const RestrauntMenu = () => {
-    const [resInfo, setResInfo] = useState(null);
+    // const [resInfo, setResInfo] = useState(null);
     const { resid } = useParams();
 
-    useEffect(() => {
-        fetchMenu();
-    }, []);
+    const dummy = "Dummy Data";
 
-    const fetchMenu = async () => {
-        try {
-            const response = await fetch(`${MENU_API}${resid}`);
-            if (!response.ok) throw new Error('Response not OK');
-            const json = await response.json();
-            setResInfo(json.data);
-        } catch (error) {
-            console.error("Fetch error: ", error);
-        }
-    };
+    const [showIndex, setShowIndex] = useState(null);
+
+    const {resInfo} = useRestrauntMenu(resid)
 
     if (!resInfo) {
         return <Shimmer />;
@@ -28,42 +22,36 @@ const RestrauntMenu = () => {
 
     const { name, cuisines, costForTwoMessage } = resInfo?.cards?.find(card => card.card?.card.info)?.card.card.info || {};
 
-    // More comprehensive search for itemCards
-    let itemCards = [];
-    const searchForItemCards = (obj) => {
-        if (Array.isArray(obj)) {
-            for (const item of obj) {
-                searchForItemCards(item);
-            }
-        } else if (typeof obj === 'object' && obj !== null) {
-            if (obj.hasOwnProperty('itemCards')) {
-                itemCards = obj.itemCards;
-                return;
-            }
-            for (const key of Object.keys(obj)) {
-                searchForItemCards(obj[key]);
-            }
-        }
-    };
 
-    searchForItemCards(resInfo);
+    const { itemCards } =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+    console.log("itemCards",itemCards);
+
+
+    const categories =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c.card?.["card"]?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+  console.log(categories);
 
     return (
-        <div className="menu">
-            <h1>{name || 'Restaurant Name Not Available'}</h1>
-            <p>{cuisines ? cuisines.join(", ") : 'Cuisine information not available'} - {costForTwoMessage || 'Cost information not available'}</p>
-            <h2>Menu</h2>
-            {itemCards.length > 0 ? (
-                <ul>
-                    {itemCards.map((item, index) => (
-                        <li key={index}>
-                            {item.card.info.name} - Rs. {(item.card.info.price / 100 || item.card.info.defaultPrice / 100).toFixed(2)}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Menu details not available for this restaurant.</p>
-            )}
+        <div className="text-center">
+            <h1 className='font-bold my-6 text-2xl'>
+            {name }</h1>
+            <p className='font-bold'>{cuisines ? cuisines.join(", ") : 'Cuisine information not available'} - {costForTwoMessage || 'Cost information not available'}</p>
+        {/* Categories Accordian */}
+                {categories.map((category, index) => (
+                // controlled component
+                <RestaurantCategory
+                key={category?.card?.card.title}
+                data={category?.card?.card}
+                showItems={index === showIndex ? true : false}
+                setShowIndex={() => setShowIndex(index)}
+                dummy={dummy}
+                />
+            ))}
         </div>
     );
 };

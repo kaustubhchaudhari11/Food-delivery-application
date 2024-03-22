@@ -1,9 +1,9 @@
-import RestrauntCard from "./Restaurant";
+import {RestrauntCard, withPromotedLabel}  from "./Restaurant";
 import {useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-
-
+import { useOnlineStatus } from "./useOnlineStatus";
+import { fetch_Res_Url } from "../utils.js/config";
 
 const Body =() =>{
     // State to manage the filter status (true for filtered, false for unfiltered
@@ -11,7 +11,7 @@ const Body =() =>{
   const [restaurants, setRestaurants] = useState([]);
   //Search text will take string input:
   const [searchText, setSearchText] = useState("")
-
+  const RestaurantCardPromoted = withPromotedLabel(RestrauntCard);
 
   console.log("Body Rendered");
 
@@ -19,12 +19,9 @@ const Body =() =>{
       fetchData();
     },[]);
 
-
-
     const fetchData = async () =>{
       try {
-      const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.4684953&lng=73.82610009999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING'
-      );
+      const data = await fetch(fetch_Res_Url);
       const response = await data.json();
       const filter_data = response.data.cards[1].card.card.gridElements;
       const { infoWithStyle: { restaurants } } = filter_data;
@@ -52,44 +49,63 @@ const Body =() =>{
         // Update the state to only include filtered restaurants.
         setRestaurants(filteredRestaurant);
       }
-    
+    const onlineStatus = useOnlineStatus();
+    console.log("This is online Status",onlineStatus);
+
+      if(onlineStatus === false){
+          return (
+            <h1>
+            Looks Like you are Offline
+            </h1>
+          )
+      }
 
     return restaurants.length ===0 ? <Shimmer/> :
     (
       <div className="body">
-        <div className= "filter">
-        <div className="search">
+        <div className= "filter flex">
+        <div className="search m-4 p-4">
           <input 
           type ="text"
+          className="border border-solid"
           onChange={(e)=>{
             setSearchText(e.target.value);
           }} 
-          className="search-box"/>
-
+          />
           <button 
+          className="px-4 py-2-rounded bg-green-100 m-4 rounded-lg"
             onClick={HandleFilterSearch}>
             Search
           </button>
-
         </div>
-          <button className="filter-btn"
+        <div>
+          
+        </div>
+        <div className="search m-4 p-4 flex items-center">
+        <button 
+          className="px-4 py-2 bg-gray-100 rounded rounded-lg"
             onClick={Handlefilter}
             >
             Top rated restaurant
             </button>
         </div>
-          <div className="res-container">
-          {
-            restaurants.map((restraunt) => (
-                <Link
-                to ={"/restaurants/"+restraunt?.info?.id}
-                >
-                <RestrauntCard key={restraunt?.info?.id} resData ={restraunt}/>
-                </Link>
-            ))
-          }
+        </div>
+          <div className="flex flex-wrap justify-center mx-auto">
+          {restaurants.map((restaurant) => (
+          <Link
+            key={restaurant?.info.id}
+            to={"/restaurants/" + restaurant?.info.id}
+          >
+            {restaurant?.info.promoted ? (
+              <RestaurantCardPromoted resData={restaurant} />
+            ) : (
+              <RestrauntCard key={restaurant?.info?.id} resData={ restaurant} />
+            )}
+          </Link>
+        ))}
           </div>
       </div>
+      
     ) 
   }
 

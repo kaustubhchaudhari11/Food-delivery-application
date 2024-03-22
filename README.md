@@ -94,3 +94,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
  * 
  * 
  */
+
+
+ #Redux Toolkit--
+ - Install @reduxjs/Toolkit and react-redux
+ - Build Our Store
+ - Connect our Store to our Application
+ -  Slice(CartSlice)
+ -  dispatch (action)
+ -  Selector

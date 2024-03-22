@@ -1,3 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 .header{
   display:flex;
@@ -10,17 +20,16 @@
 }
 
 .search-box, .filter-btn, .search button {
-  height: 40px; /* Adjust this value so that the search box and both buttons have the same height */
-  padding: 0 15px; /* Optional: Adjust padding as needed */
+  height: 40px; 
+  padding: 0 15px; 
 }
 
-/* Optionally, you might want to adjust the width of the search box and buttons to ensure they match in terms of overall size and not just height */
 .search-box {
-  flex-grow: 1; /* Allows the search box to expand and fill the available space */
+  flex-grow: 1; 
 }
 
 .filter-btn, .search button {
-  white-space: nowrap; /* Prevents text wrapping in buttons */
+  white-space: nowrap; 
 }
 
 .nav-items{
@@ -47,16 +56,16 @@ margin :10px;
 
 .res-cards{
   display: flex;
-  flex-direction: column; /* Stack content vertically */
-  justify-content: space-between; /* Distribute space around items */
+  flex-direction: column; 
+  justify-content: space-between;
   margin: 5px;
-  padding: 10px; /* Adjust padding as needed */
-  height: auto; /* Allow card height to expand based on content */
-  min-height: 200px; /* Minimum height to maintain a consistent look */
+  padding: 10px; 
+  height: auto; 
+  min-height: 200px; 
   box-sizing: border-box;
-  width: 200px; /* Consider adjusting this width if you want more cards per row */
+  width: 200px; 
   box-sizing: border-box;
-  border: 1px solid #ccc; /* Optional, for better visibility */
+  border: 1px solid #ccc; 
 }
 
 .res-cards:hover{
@@ -66,17 +75,17 @@ margin :10px;
 
 .res-logo{
   width: 100%;
-  height: auto; /* Maintain aspect ratio */
+  height: auto;
 
 }
 
 .res-container {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Corrected from 'flex: wrap;' to 'flex-wrap: wrap;' */
+  flex-wrap: wrap; 
   justify-content: center;
-  gap: 20px; /* This will ensure there's a little space between the cards */
-  padding: 10px; /* Add padding around the entire container */
+  gap: 20px; 
+  padding: 10px; 
 
 }
 
@@ -91,13 +100,13 @@ margin :10px;
 
 
 .res-cards h3, .res-cards h4 {
-  margin: 5px 0; /* Adjust margins to ensure text is not too cramped */
-  white-space: normal; /* Allow text to wrap */
-  word-wrap: break-word; /* Break long words to prevent overflow */
-  overflow: hidden; /* Hide overflow if necessary */
-  text-overflow: ellipsis; /* Show ellipsis for text that overflows */
+  margin: 5px 0;
+  white-space: normal; 
+  word-wrap: break-word; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limit text to 2 lines, for example */
+  -webkit-line-clamp: 2; 
   -webkit-box-orient: vertical;
 }
 
@@ -114,8 +123,8 @@ margin :10px;
 }
 
 .login-button{
-  padding: 5px 15px; /* Reduced padding */
-  font-size: 14px; /* Adjust font size if needed */
+  padding: 5px 15px;
+  font-size: 14px; 
   background-color: #007bff;
   color: white;
   border: none;
@@ -135,16 +144,14 @@ margin :10px;
   transform: scale(0.95);
 }
 
-/* Ensuring the button text doesn't select on double click */
 .login-button:focus {
   outline: none;
 }
 
-/* Optional: Adding a small shadow for depth */
 .login-button {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .login-button:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
+} */
