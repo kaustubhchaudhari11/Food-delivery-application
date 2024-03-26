@@ -13,6 +13,7 @@ import UserContext from './utils.js/UserContext';
 import { Provider } from "react-redux";
 import Cart from './components/Cart';
 import appStore from './utils.js/AppStore';
+import { Sign_in } from './googlesign_in/sign_in';
 
 
 
@@ -23,24 +24,47 @@ function App() {
 
 
   const [userName, setUserName] = useState();
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
-  //authentication
+
+  // useEffect(() => {
+  //   const userEmail = localStorage.getItem('email');
+  //   console.log("User email from localStorage:", userEmail); // Debugging line
+  //   if (userEmail) {
+  //     setUserName(userEmail);
+  //     setIsSignedIn(true);
+  //   } else {
+  //     console.log("No user email found, should show sign-in."); // Debugging line
+  //     setIsSignedIn(false); // Explicitly set it to false for clarity
+  //   }
+  // }, []);
   useEffect(() => {
-    // Make an API call and send username and password
-    const data = {
-      name: "Kaustubh Chaudhari",
-    };
-    setUserName(data.name);
-  }, []);
+    const userEmail = localStorage.getItem('email');
+    if (userEmail) {
+        setUserName(userEmail);
+        setIsSignedIn(true);
+    } else {
+        setIsSignedIn(false);
+    }
+}, []);
+  
 
   return (
     <Provider store={appStore}>
     <UserContext.Provider value={{ loggedInUser: userName  }}>
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <Header/>
         <Outlet/>
-      </header>
+      </header> */}
+      {isSignedIn ? (
+            <>
+              <Header /> {/* Include the Header */}
+              <Outlet /> {/* And the Outlet for child routes */}
+            </>
+          ) : (
+            <Sign_in />
+          )}
     </div>
     </UserContext.Provider>
     </Provider>

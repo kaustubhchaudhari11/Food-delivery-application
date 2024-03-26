@@ -5,6 +5,8 @@ import { useOnlineStatus } from "./useOnlineStatus";
 import { LOGO_URL } from "../utils.js/config";
 import UserContext from "../utils.js/UserContext";
 import { useSelector } from "react-redux";
+import { auth } from '../googlesign_in/config'; // Adjust the path as necessary
+import { signOut } from 'firebase/auth';
 
 const Header = () =>{
   const [buttonName, setButton] = useState('Login');
@@ -21,18 +23,37 @@ const Header = () =>{
 
     console.log("This is loggedIn UserContext ",loggedInUser);
 
-  // Subscribing to the store using a Selector
   const cartItems = useSelector((store) => store.cart.items);
-  //console.log(cartItems);
 
-  // Toggle FC
-  const toggleButtonName = ()=>{
-    if(buttonName ==="Login"){
-      setButton("Logout")
-    }else{
-      setButton("Login")
+
+  useEffect(() => {
+    const checkUserLoggedIn = () => {
+      const userEmail = localStorage.getItem('email');
+      if (userEmail) {
+        setButton("Logout");
+      } else {
+        setButton("Login");
+      }
+    };
+
+    checkUserLoggedIn();
+  }, []);
+
+  const toggleButtonName = () => {
+    if (buttonName === "Login") {
+      // Your login logic here
+    } else {
+      // Firebase sign out logic
+      signOut(auth).then(() => {
+        console.log("User signed out");
+        localStorage.removeItem("email");
+        localStorage.removeItem("userName");
+        window.location.reload(); // Consider using a more reactive state update instead
+      }).catch((error) => {
+        console.error("Error signing out:", error);
+      });
     }
-  }
+  };
 
     return (
       <div className="flex justify-between bg-green-100 shadow-lg">
